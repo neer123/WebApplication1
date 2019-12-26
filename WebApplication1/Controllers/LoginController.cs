@@ -66,7 +66,7 @@ namespace WebApplication1.Controllers
 
         private UserModel Authenticateuser(UserModel UM)
         {
-            if (UM.UserName == "Test1" && UM.Password == "123")
+            if (UM.UserName == "Test1" && UM.Password == "1234")
             {
                 UM.EmailAddress = "Test1@gmail.com";
                 return UM;
