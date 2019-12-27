@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using WebApplication1.Models;
@@ -22,7 +21,7 @@ namespace WebApplication1.Controllers
         public IActionResult Index()
         {
 
-            List<Employee> lst = _dataRepository.GetAll().ToList();
+           // List<Employee> lst = _dataRepository.GetAll().ToList();
 
             return View();
         }
@@ -111,7 +110,7 @@ namespace WebApplication1.Controllers
             ViewBag.CP = pagecount;
 
 
-            return View(_dataRepository.GetAll(skipcount, prowcount));  //.Skip(skipcount).Take(3));
+            return View(_dataRepository.GetAll(skipcount, prowcount));
         }
 
 
