@@ -47,7 +47,7 @@ namespace WebApplication1.Controllers
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
             var claims = new[]
                 {
-                new Claim(JwtRegisteredClaimNames.Sub, UM.UserName),
+            new Claim(JwtRegisteredClaimNames.Sub, UM.UserName),
             new Claim(JwtRegisteredClaimNames.Email, UM.EmailAddress),
             new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
             };
