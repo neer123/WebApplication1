@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Web.Mvc;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using WebApplication1.Models;
@@ -12,18 +15,42 @@ namespace WebApplication1.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IDataRepository<Employee> _dataRepository;
+        private HttpClient client = new HttpClient();
+
         public HomeController(ILogger<HomeController> logger, IDataRepository<Employee> dataRepository)
         {
             _logger = logger;
             _dataRepository = dataRepository;
         }
-
+        [AcceptVerbs(new string[] {"Get","Post"})]
         public IActionResult Index()
         {
 
-           // List<Employee> lst = _dataRepository.GetAll().ToList();
 
-            return View();
+          //  var token = client.GetAsync("http://localhost:62136/api/login?UserName=Test1&Password=12");
+          //  var res =  client.GetAsync("http://localhost:5000/api/login/GetValue");
+         //   client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token.ToString());
+            client.BaseAddress = new Uri("http://localhost:62136/api/");
+            //HTTP GET
+            var responseTask = client.GetAsync("login?UserName=Test1&Password=12");
+            responseTask.Wait();
+
+            var result = responseTask.Result;
+            if (result.IsSuccessStatusCode)
+            {
+
+                HttpClient client1 = new HttpClient();
+                client1.BaseAddress = new Uri("http://localhost:62136/api/Login/");
+                client1.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", result.Content.ReadAsStringAsync().Result);
+                var responseTask1 = client1.GetAsync("GetValue");
+                responseTask1.Wait();
+                var result1 = responseTask1.Result;
+            }
+
+
+                // List<Employee> lst = _dataRepository.GetAll().ToList();
+
+                return View();
         }
         [HttpGet]
         public IActionResult Student()
