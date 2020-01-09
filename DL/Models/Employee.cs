@@ -24,7 +24,7 @@ namespace DL
         public string Designation { get; set; }
         [Required(ErrorMessage = "This is required.")]
        
-        public float Salary { get; set; }
+        public string Salary { get; set; }
         [Required(ErrorMessage = "This is required.")]      
         public int MobileNo { get; set; }
 

@@ -29,10 +29,19 @@ namespace WebAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddCors(options =>
+            // services.AddCors(options =>
+            //{
+            // options.AddPolicy("CorsPolicy", builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader().Build());
+            //});
+
+            services.AddCors(c =>
             {
-                options.AddPolicy("CorsPolicy", builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader().AllowCredentials().Build());
+                c.AddPolicy("AllowOrigin", option => option.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
             });
+            //services.AddCors(c =>
+            //{
+            //    c.AddPolicy("AllowOrigin", options => options.WithOrigins("https://localhost:62136"));
+            //});
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options => options.TokenValidationParameters = new TokenValidationParameters()
@@ -60,9 +69,14 @@ namespace WebAPI
             {
                 app.UseDeveloperExceptionPage();
             }
-            UpdateDatabase(app);
-            app.UseRouting();           
-           // app.UseAuthorization();         
+           // UpdateDatabase(app);
+            app.UseRouting();
+
+          //  app.UseCors(options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader().Build());
+
+             app.UseCors(options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+            //app.UseCors(options => options.WithOrigins("https://localhost:62136"));
+            // app.UseAuthorization();         
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
