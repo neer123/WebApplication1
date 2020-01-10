@@ -8,6 +8,12 @@ namespace DL
 {
     public class Employee
     {
+
+        public Employee()
+        {
+
+        }
+
         public int EmployeeId { get; set; }
         [Required(ErrorMessage ="This is required.")]
         [MaxLength(50)]

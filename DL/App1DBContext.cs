@@ -11,6 +11,10 @@ namespace DL
         {
 
         }
+        public App1DBContext()
+        {
+
+        }
 
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Student> Students { get; set; }

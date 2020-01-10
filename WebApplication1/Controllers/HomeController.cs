@@ -15,7 +15,7 @@ namespace WebApplication1.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IDataRepository<Employee> _dataRepository;
-        private HttpClient client = new HttpClient();
+        private readonly HttpClient client = new HttpClient();
 
         public HomeController(ILogger<HomeController> logger, IDataRepository<Employee> dataRepository)
         {
@@ -25,31 +25,21 @@ namespace WebApplication1.Controllers
         [AcceptVerbs(new string[] {"Get","Post"})]
         public IActionResult Index()
         {
+            //client.BaseAddress = new Uri("http://localhost:62136/api/");
+            ////HTTP GET
+            //var responseTask = client.GetAsync("login?UserName=Test1&Password=12");
+            //responseTask.Wait();
 
-
-          //  var token = client.GetAsync("http://localhost:62136/api/login?UserName=Test1&Password=12");
-          //  var res =  client.GetAsync("http://localhost:5000/api/login/GetValue");
-         //   client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token.ToString());
-            client.BaseAddress = new Uri("http://localhost:62136/api/");
-            //HTTP GET
-            var responseTask = client.GetAsync("login?UserName=Test1&Password=12");
-            responseTask.Wait();
-
-            var result = responseTask.Result;
-            if (result.IsSuccessStatusCode)
-            {
-
-                HttpClient client1 = new HttpClient();
-                client1.BaseAddress = new Uri("http://localhost:62136/api/Login/");
-                client1.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", result.Content.ReadAsStringAsync().Result);
-                var responseTask1 = client1.GetAsync("GetValue");
-                responseTask1.Wait();
-                var result1 = responseTask1.Result;
-            }
-
-
-                // List<Employee> lst = _dataRepository.GetAll().ToList();
-
+            //var result = responseTask.Result;
+            //if (result.IsSuccessStatusCode)
+            //{
+            //    HttpClient client1 = new HttpClient();
+            //    client1.BaseAddress = new Uri("http://localhost:62136/api/Login/");
+            //    client1.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", result.Content.ReadAsStringAsync().Result);
+            //    var responseTask1 = client1.GetAsync("GetValue");
+            //    responseTask1.Wait();
+            //    var result1 = responseTask1.Result;
+            //}
                 return View();
         }
         [HttpGet]
