@@ -57,8 +57,7 @@ namespace WebApplication1.Controllers
         {
             try
             {
-                // TODO: Add update logic here
-
+                
                 return RedirectToAction(nameof(Index));
             }
             catch
